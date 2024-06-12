@@ -18,6 +18,7 @@ async function getResponseFromOpenAI(parameters, messages) {
     const OpenAi = OpenAIModule.default;
 
     const openai = new OpenAi({
+        baseURL: parameters.apiHostname,
         apiKey: parameters.apiKey,
         dangerouslyAllowBrowser: true,
     });
