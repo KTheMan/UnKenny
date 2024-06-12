@@ -4,7 +4,7 @@ function llmParametersAndDefaults() {
     return {
         model: null,
         apiKey: "",
-        aptHostname: "https://api.openai.com/v1",
+        apiHostname: "https://api.openai.com/v1",
         minNewTokens: 1,
         maxNewTokens: 250,
         repetitionPenalty: 0.0,
