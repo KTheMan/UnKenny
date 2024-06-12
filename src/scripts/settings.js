@@ -37,6 +37,15 @@ function registerGameParameters() {
         default: params.apiKey
     });
 
+        game.settings.register("unkenny", "apiHostname", {
+        name: "OpenAI API Hostname",
+        hint: `If you want to use OpenAI or compatible models, you need to provide an API Hostname here.`,
+        scope: "world",
+        config: true,
+        type: String,
+        default: params.apiHostname
+    });
+
     game.settings.register("unkenny", "minNewTokens", {
         name: "Minimum Number of New Tokens",
         hint: `In large language models, the number of tokens determines the length of the generated text.
