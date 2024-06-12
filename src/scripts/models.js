@@ -13,6 +13,7 @@ const MODELS_MAP = new Map([
     ["gpt-4", { text: "OpenAI: GPT-4", limit: 8_192 }],
     ["gpt-4-turbo", { text: "OpenAI: GPT-4 turbo", limit: 128_000 }],
     ["gpt-4o", { text: "OpenAI: GPT-4o", limit: 128_000 }]
+    ["llama3", { text: "Ollama: Llama3", limit: 128_000 }]
 ]);
 
 function getModelToTextMap() {
