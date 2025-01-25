@@ -45,4 +45,23 @@ async function loadExternalModule(name) {
     }
 }
 
-export { isUnKenny, loadExternalModule };
+async function fetchOllamaModels(endpoint, apiKey) {
+    try {
+        const response = await fetch(`${endpoint}/models`, {
+            headers: {
+                'Authorization': `Bearer ${apiKey}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to fetch models: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data.models;
+    } catch (error) {
+        const errorMessage = game.i18n.format("unkenny.shared.ollamaFetchFailed", { error: error.message });
+        ui.notifications.error(errorMessage);
+        return [];
+    }
+}
+
+export { isUnKenny, loadExternalModule, fetchOllamaModels };

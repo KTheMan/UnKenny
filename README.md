@@ -8,7 +8,7 @@ UnKenny is a module for [Foundry Virtual Tabletop](https://foundryvtt.com/). It 
 
 __Be mindful which modules you enable.__
 
-If you are storing your OpenAI API key in UnKenny, you are entrusting it to us, and by extension, to FoundryVTT. The modularity of Foundry is one of its big selling points, but it is also an invitation to arbitrary code execution. Any module you install could, in principle, inject some code that steals your API key. Foundry takes some countermeasures like scoping of modules, but ultimately it is very hard to defend against attacks from within your application.
+If you are storing your OpenAI or Ollama API key in UnKenny, you are entrusting it to us, and by extension, to FoundryVTT. The modularity of Foundry is one of its big selling points, but it is also an invitation to arbitrary code execution. Any module you install could, in principle, inject some code that steals your API key. Foundry takes some countermeasures like scoping of modules, but ultimately it is very hard to defend against attacks from within your application.
 
 For that reason, monitor your API key usage every now and then. If ever you find a module that has stolen your key, please
 * [Revoke your key.](https://help.openai.com/en/articles/4936817-i-see-suspicious-activity-on-my-account-what-do-i-do)
@@ -20,6 +20,8 @@ For that reason, monitor your API key usage every now and then. If ever you find
 ### Global Configuration
 
 After enabling the module for a world, configure it in the global settings. Selecting a [Large Language Model](https://en.wikipedia.org/wiki/Large_language_model) is required. If you want to use one of OpenAI's models, you will also need to [set up and pay for an API key](https://blog.streamlit.io/beginners-guide-to-openai-api/). Note that different models may have different capabilties and also different usage costs.
+
+If you want to use Ollama models, you will need to set up the Ollama endpoint and API key. After configuring these, click the "Fetch Ollama Models" button to populate the models list with available Ollama models.
 
 The other parameters are set to reasonable defaults.
 

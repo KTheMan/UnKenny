@@ -1,6 +1,6 @@
 import { collectChatMessages } from "./collecting-chat-messages.js";
 import { getResponseFromLocalLLM } from "../scripts/local-llm.js";
-import { getResponseFromOpenAI } from "../scripts/openai-api.js";
+import { getResponseFromOpenAI, getResponseFromOllama } from "../scripts/openai-api.js";
 import { isLocal } from "./models.js";
 import { llmParametersAndDefaults } from "./settings.js";
 
@@ -46,6 +46,8 @@ async function generateResponse(actor, input, parameters) {
     let response;
     if (isLocal(parameters.model)) {
         response = await getResponseFromLocalLLM(parameters, messages);
+    } else if (parameters.model.startsWith("Ollama:")) {
+        response = await getResponseFromOllama(parameters, messages);
     } else {
         response = await getResponseFromOpenAI(parameters, messages);
     }

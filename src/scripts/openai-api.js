@@ -39,4 +39,32 @@ async function getResponseFromOpenAI(parameters, messages) {
     }
 }
 
-export { getResponseFromOpenAI, roughNumberOfTokensForOpenAi };
+async function getResponseFromOllama(parameters, messages) {
+    try {
+        const response = await fetch(`${parameters.ollamaEndpoint}/generate`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${parameters.ollamaApiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: parameters.model,
+                messages: messages,
+                max_tokens: parameters.maxNewTokens,
+                temperature: parameters.temperature,
+                frequency_penalty: parameters.repetitionPenalty
+            })
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to generate response: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } catch (error) {
+        const errorMessage = game.i18n.format('unkenny.llm.ollamaError', { error: error.message });
+        ui.notifications.error(errorMessage);
+        return;
+    }
+}
+
+export { getResponseFromOpenAI, roughNumberOfTokensForOpenAi, getResponseFromOllama };

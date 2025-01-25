@@ -1,7 +1,8 @@
-
 import { findActorWithAlias } from "../scripts/chat-message-request.js";
 import { getModelToTextMap } from "../scripts/models.js";
 import { PREFIX_OPTIONS } from "../scripts/prefix.js";
+import { fetchOllamaModels } from "../scripts/shared.js";
+import { updateModelsWithOllama } from "../scripts/models.js";
 
 class UnKennySheet extends DocumentSheet {
     constructor(actor) {
@@ -22,6 +23,9 @@ class UnKennySheet extends DocumentSheet {
             this.initPrefixes();
             await this.initContextWithActorData();
         }
+
+        this.context.ollamaEndpoint = game.settings.get("unkenny", "ollamaEndpoint");
+        this.context.ollamaApiKey = game.settings.get("unkenny", "ollamaApiKey");
 
         return this.context;
     }
@@ -63,6 +67,10 @@ class UnKennySheet extends DocumentSheet {
             let prefix = event.target.value;
             this.setContextPrefix(prefix);
         }
+        if (event.target.name == "ollamaEndpoint" || event.target.name == "ollamaApiKey") {
+            this.context.ollamaEndpoint = event.target.value;
+            this.context.ollamaApiKey = event.target.value;
+        }
     }
 
     setContextModel(model) {
@@ -99,6 +107,9 @@ class UnKennySheet extends DocumentSheet {
             await this.updateFlag(formData, "prefix");
         }
 
+        await this.object.setFlag("unkenny", "ollamaEndpoint", formData.ollamaEndpoint);
+        await this.object.setFlag("unkenny", "ollamaApiKey", formData.ollamaApiKey);
+
         const actor = await findActorWithAlias(formData.alias);
         if (!actor) {
             ui.notifications.error(game.i18n.localize("unkenny.sheet.settingAliasFailed"));
@@ -112,6 +123,13 @@ class UnKennySheet extends DocumentSheet {
         } else {
             await this.object.unsetFlag("unkenny", key);
         }
+    }
+
+    async fetchAndSetOllamaModels() {
+        const models = await fetchOllamaModels(this.context.ollamaEndpoint, this.context.ollamaApiKey);
+        await updateModelsWithOllama(models);
+        this.initModels();
+        this.render();
     }
 }
 

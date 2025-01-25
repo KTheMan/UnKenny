@@ -47,4 +47,10 @@ function getTokenLimit(model) {
     return foundModel ? foundModel.limit : undefined;
 }
 
-export { getModelToTextMap, getLocalModels, getOpenAiModels, getTokenLimit, isLocal };
+async function updateModelsWithOllama(ollamaModels) {
+    ollamaModels.forEach(model => {
+        MODELS_MAP.set(model.id, { text: `Ollama: ${model.name}`, limit: model.token_limit });
+    });
+}
+
+export { getModelToTextMap, getLocalModels, getOpenAiModels, getTokenLimit, isLocal, updateModelsWithOllama };

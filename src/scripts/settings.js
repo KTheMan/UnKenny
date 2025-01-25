@@ -9,7 +9,9 @@ function llmParametersAndDefaults() {
         maxNewTokens: 250,
         repetitionPenalty: 0.0,
         temperature: 1.0,
-        prefix: ""
+        prefix: "",
+        ollamaEndpoint: "",
+        ollamaApiKey: ""
     };
 }
 
@@ -99,6 +101,24 @@ function registerGameParameters() {
         type: String,
         choices: PREFIX_OPTIONS,
         default: params.prefix
+    });
+
+    game.settings.register("unkenny", "ollamaEndpoint", {
+        name: game.i18n.localize("unkenny.settings.ollamaEndpoint"),
+        hint: game.i18n.localize("unkenny.settings.ollamaEndpointDescription"),
+        scope: "world",
+        config: true,
+        type: String,
+        default: params.ollamaEndpoint
+    });
+
+    game.settings.register("unkenny", "ollamaApiKey", {
+        name: game.i18n.localize("unkenny.settings.ollamaApiKey"),
+        hint: game.i18n.localize("unkenny.settings.ollamaApiKeyDescription"),
+        scope: "world",
+        config: true,
+        type: String,
+        default: params.ollamaApiKey
     });
 }
 

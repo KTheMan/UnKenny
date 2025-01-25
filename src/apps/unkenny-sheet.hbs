@@ -61,6 +61,20 @@
             </select>
         </div>
 
+        <div class='form-field'>
+            <label>{{localize "unkenny.settings.ollamaEndpoint"}}</label>
+            <input name="ollamaEndpoint" type="text" value="{{ollamaEndpoint}}">
+        </div>
+
+        <div class='form-field'>
+            <label>{{localize "unkenny.settings.ollamaApiKey"}}</label>
+            <input name="ollamaApiKey" type="text" value="{{ollamaApiKey}}">
+        </div>
+
+        <button type="button" onclick="this.closest('.document-sheet').fetchAndSetOllamaModels()">
+            {{localize "unkenny.sheet.fetchOllamaModels"}}
+        </button>
+
         <button type="submit">
             <i class="fa fa-check"></i>
             {{localize "unkenny.sheet.save"}}
